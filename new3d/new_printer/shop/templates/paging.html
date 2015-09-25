@@ -1,0 +1,13 @@
+{% load compress %}
+<div class="paging-wrap pt100 pb20 clearfix">
+	<div class="paging-box mr15 fr">
+		<a class="paging-btn" href="javascript:void(0)">首页</a>
+		<a class="paging-btn" href="javascript:void(0)">上一页</a>
+		<div class="paging-num inl-b"></div>
+		<a class="paging-btn" href="javascript:void(0)">下一页</a>
+		<a class="paging-btn" href="javascript:void(0)">末页</a>
+	</div>
+</div>
+{% compress js %}
+<script type="text/javascript" src="/static/plugin/js/paging.js"></script>
+{% endcompress %}

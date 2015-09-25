@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} 商家后台中心 {% endblock %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block selfFiles %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/vender/vender.css' %}" />
+	{% endcompress %}
+
+	{% compress js %}
+	<script type="text/javascript" src="{% static 'js/vender/vender.js' %}"></script>
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	{% endcompress %}
+{% endblock %}
+
+{% block bodyColor %}
+<body class="vc">
+{% endblock %}
+
+{% block logo %}
+{% endblock %}
+
+{% block content %}
+	<div class="vender-center">
+		<div class="container clearfix">
+
+			{% include 'vender/vender-list.html' %}
+			
+			<div class="vender-content fr">
+
+				{% block venderContent %}
+				{% endblock %}
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+
+{% block customerTool %}
+{% endblock %}

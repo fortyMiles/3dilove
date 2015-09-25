@@ -1,0 +1,112 @@
+{% extends 'designer/designer-base.html' %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block selfJs %}
+{% compress js %}
+<script type="text/javascript" src="{% static 'plugin/js/imgUpLoadPreview.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/designer/designer-works.js' %}"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block mainContent %}
+<div class="designer-works-container">
+	<div class="designer-works-btn mb30">
+		<button class="works-current" value='0' id="works_wait_btn">待定价({{ worksWait }})</button>
+		<button value='1' id="works_on_btn">审核中({{ worksOn }})</button>
+		<button value='2' id="works_not_btn">未通过({{ worksNot }})</button>
+		<button value='3' id="works_Suc_btn">已发布({{ worksSuc }})</button>
+	</div>
+	<div class="search-tag mb30 hide clearfix">
+		<ul class="designer-works-nav fl">
+			<li><a type-tag='全部' class="designer-works-nav-current" href="javascript:void(0)">全部</a></li>
+			<li><a type-tag='戒指' class="type-filter-btn chover " href="javascript:void(0)">戒指</a></li>
+			<li><a type-tag='吊坠' class="type-filter-btn chover " href="javascript:void(0)">吊坠</a></li>
+			<li><a type-tag='耳坠' class="type-filter-btn chover " href="javascript:void(0)">耳坠</a></li>
+			<li><a type-tag='手链' class="type-filter-btn chover " href="javascript:void(0)">手链</a></li>
+			<li><a type-tag='项链' class="type-filter-btn chover " href="javascript:void(0)">项链</a></li>
+			<li><a type-tag='胸针' class="type-filter-btn chover " href="javascript:void(0)">胸针</a></li>
+		</ul>
+		<div class="designer-works-search fr">
+			<input type="text" class="search-box fl"/>
+			<span class="designer-works-search-icon fl"></span>
+		</div>
+	</div>
+	<div class="designer-works-lists"></div>
+</div>
+<form type="file" action="/designer/edit_submit" method="post" class="changeInfo" enctype="multipart/form-data"  multiple="" >
+	<div class="modify-content ">
+		<div class="clearfix">
+			<div class="modify-left fl">
+				<div class="modify-stl" style='overflow: visible;position:relative;'>
+					<img src="" class="modify-stl-preview">
+					<p class="modify-stl-show">点击可新打开页面查看三维效果<br/>截屏生成预览图</p>
+					<div class="show-3d-bar-container" id="show-3d-bar-container">
+						<div class="show-3d-bar" id="show-3d-bar"></div>
+					</div>
+
+					<!--all those 3d stuffs are here-->
+					<div id='show-3d-cont' style='position: absolute;top: 0px;left: 0px;z-index: 51; display:none;'>
+						<div id='show-3d'></div>
+						<div id='show-3d-tool-fullscreen' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; top:5px; right:5px;color:#fff;'>全屏</div>
+						<div id='show-3d-tool-screenshot' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; bottom:5px; right:5px;color:#fff;'>截图</div>
+					</div>
+					<div id='show-3d-fullscreen-cont' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
+						<div id='show-3d-fullscreen'></div>
+						<div id='show-3d-tool-cancel-fullscreen' style='position:absolute;z-index:51;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;top: 10px;right: 10px;'>退出全屏</div>
+					</div>
+					<!--all those 3d stuffs are here over-->
+				</div>
+				<div class="modify-show-info">
+					<div class="modify-info-box">
+						<label>格式：
+							<span class="modify-type"></span>
+						</label>
+						<label>大小：
+							<span class="modify-size"></span>
+						</label>
+					</div>
+					<div class="modify-info-box">
+						<label>上传时间：</label>
+						<span class="modify-update"></span>
+					</div>
+				</div>
+			</div>
+			<div class="modify-right fl">
+				<div class="modify-imgs-container clearfix">
+					<div class="modify-imgs-box fl">
+						<div class="modify-imgs-modify">
+							<div class="modify-imgs-modify-hidden">
+								<input type="file" name="" />
+							</div>
+							<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
+							<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
+						</div>
+					</div>
+					
+				</div>
+				<p><span class="f18" style="color:#62cdd7;">标题：</span><input type="text" class="modify-name" name="stl_name" /></p>
+				<input type="hidden" class="modify-id" name="modify_id" />
+				<p><span class="f18" style="color:#62cdd7;">价格：</span><input type="text" class="modify-price" name="stl_price" /><span class="f18" style="color:#62cdd7;"> 元</span></p>
+				<p><span style="color:#62cdd7;" class="va-t f18">描述：</span><textarea class="modify-describe" name="stl_describe"></textarea></p>
+			</div>
+		</div>
+		<div class="modify-btn-container">
+			<button class="modify-btn-submit">重新发布</button>
+			<input class="push-type" name="push_type" type="hidden" value="0" />
+		</div>
+	</form>
+	<span class="modify-container-close"></span>
+</div>
+
+<script src="{% static 'js/show3d/three-69.min.js' %} "></script>
+{% compress js %}
+<!--  added by white  -->
+<script src="{% static 'js/show3d/STLLoader.js' %}"></script>
+<script src="{% static 'js/show3d/OrbitControls.js' %}"></script>
+<script src="{% static 'js/show3d/3dDemo.js' %}"></script>
+<script src="{% static 'js/show3d/uplist.js' %}"></script>
+<!--  added by white over  -->
+{% endcompress %}
+{% endblock %}

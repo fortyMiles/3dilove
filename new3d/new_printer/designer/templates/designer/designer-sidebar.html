@@ -1,0 +1,33 @@
+<div class="designer-sidebar fl">
+	<div class="designer-sidebar-headbox">
+		<div class="designer-sidebar-pic">
+			<img src="{{ img }}"/>
+		</div>
+		<div class="designer-sidebar-title">
+			<a class="f18" style="color:#79d0d8;" href="/designer/designer_personal?designer_id={{ designer_id }}">
+				<span class="designer-sidebar-title-icon"></span>
+				个人主页
+			</a>
+		</div>
+		<div class="designer-sidebar-username">
+			<span>{{ name }} </span>
+			<a style="color:#cc3333;" href="/account/u_logout" class="designer-quiet">退出</a>
+		</div>
+	</div>
+	<div class="designer-sidebar-menu">
+		<ul>
+			<li class="designer-sidebar-menulist {% if state %}menu-current{% else %}{% endif %}">
+				<a href="/designer/my_state">我的动态</a>
+			</li>
+			<li class="designer-sidebar-menulist {% if work %}menu-current{% else %}{% endif %}">
+				<a href="/designer/works_upload">作品上传</a>
+			</li>
+			<li class="designer-sidebar-menulist {% if auditing %}menu-current{% else %}{% endif %}">
+				<a href="/designer/designer_works">作品管理</a>
+			</li>
+			<li class="designer-sidebar-menulist {% if setup %}menu-current{% else %}{% endif %}">
+				<a href="/designer/setup">账号设置</a>
+			</li>
+		</ul>
+	</div>
+</div>
